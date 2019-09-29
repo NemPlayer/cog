@@ -1,8 +1,14 @@
 import pygame
 import os
-from pathlib import Path
+import logging
+import time
+from pathlib import Path, PurePath
 
 os.chdir(Path(__file__).parent)
+
+logging.basicConfig(filename=PurePath(os.getcwd(), f"logs/{time.strftime('%Y-%m-%d-%H:%M:%S')}.log"),
+                    level=logging.DEBUG,
+                    format="%(asctime)s::%(levelname)s::%(name)s::%(module)s::%(message)s")
 
 from menu.menu import Menu
 from window import Window
@@ -25,6 +31,7 @@ class Main:
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
+                    logging.info("Quitting CoG...")
                     running = False
 
             pygame.display.update()

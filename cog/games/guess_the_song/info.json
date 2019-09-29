@@ -1,0 +1,8 @@
+{
+    "name": "Guess the Song",
+    "description": "Challenge yourself to see how you stack up against the ultimate Guess the Song game!",
+    "players": {
+        "min": 1,
+        "max": 8
+    }
+}

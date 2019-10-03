@@ -1,7 +1,7 @@
 import pygame
+import logging
 import os
 import json
-import logging
 from pathlib import PurePath, Path
 
 from window import Window
@@ -31,37 +31,71 @@ class Menu(Window):
                 if file == "info.json":
                     with open(PurePath(root, file), "r") as info_json:
                         try:
-                            logging.info("Adding a game to the set...")
+                            logging.info("Adding a game...")
 
                             info = json.loads(info_json.read())
 
-                            name = info["name"]
-                            description = info["description"]
-                            version = info["version"]
-                            players = (info["players"]["min"], info["players"]["max"])
+                            name = str(info["name"])
+                            description = str(info["description"])
+                            version = str(info["version"])
+                            players = (
+                                int(info["players"]["min"]),
+                                int(info["players"]["max"])
+                            )
                         except ValueError as e:
-                            logging.error(f"ValueError: {e}")
+                            logging.error(
+                                f"ValueError: {e}"
+                            )
                         except KeyError as e:
-                            logging.error(f"KeyError: {e} is not a valid key for 'info' dict")
+                            logging.error(
+                                f"KeyError: {e} is not a valid key for 'info'"
+                            )
                         else:
                             game = Game(name, description, version, players)
                             self.games.add(game)
 
-                            logging.info("Successfully added a game to the set!")
+                            logging.info("Successfully added a game!")
 
     def draw(self):
         """Draws the menu."""
 
         display_info = pygame.display.Info()
-        display_width, display_height = display_info.current_w, display_info.current_h
+        display_width = display_info.current_w
+        display_height = display_info.current_h
+
+        # Simulate Display Resolution
+        # display_width, display_height = 1920, 400
 
         self.fill(self.BLACK)
 
-        self.text(round(display_width * 0.4375), round(display_height * 0.025), "CoG", 120, self.WHITE)
+        self.text(
+            round(display_width * 0.4375), round(display_height * 0.025),
+            "CoG", 120,
+            self.WHITE
+        )
 
-        self.rect(self.YELLOW, round(display_height * 0.05), round(display_height * 0.05), round(display_width * 0.3625), display_height - 2 * round((display_height * 0.05)), 3, True)
+        self.rect(
+            self.YELLOW,
+            round(0.05*display_height),
+            round(0.05*display_height),
+            round(0.3625*display_width),
+            display_height - 2*round(0.05*display_height),
+            3,
+            True)
 
         for index, game in enumerate(self.games):
-            self.text(round((display_height * 0.05) * (1.4 * display_height / 1080)), round((display_height * 0.05) * (1.4 * display_height / 1080)) + index * round((display_height * 0.05) * (display_height / 1080)), game.name, 45, self.WHITE)
+            self.text(
+                round(1.4*0.05*display_height),
+                round(1.4*0.05*display_height + index*0.05*display_height),
+                game.name,
+                45,
+                self.WHITE
+            )
 
-            self.text(round((display_width * 0.3625) - (display_height * 0.05 / 2)), round((display_height * 0.05) * (1.4 * display_height / 1080)) + index * round((display_height * 0.05) * (display_height / 1080)), game.version, 45, self.WHITE)
+            self.text(
+                round(0.3625*display_width - 0.4*0.05*display_height),
+                round(1.4*0.05*display_height + index*0.05*display_height),
+                game.version,
+                45,
+                self.WHITE
+            )

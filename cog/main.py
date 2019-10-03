@@ -6,12 +6,14 @@ from pathlib import Path, PurePath
 
 os.chdir(Path(__file__).parent)
 
-logging.basicConfig(#filename=PurePath(Path.cwd(), f"logs/{time.strftime('%Y-%m-%d-%H:%M:%S')}.log"),
-                    level=logging.DEBUG,
-                    format="%(asctime)s::%(levelname)s::%(name)s::%(module)s::%(message)s")
+logging.basicConfig(
+#    filename=PurePath(Path.cwd(), f"logs/{time.strftime('%Y-%m-%d %X')}.log"),
+    level=logging.DEBUG,
+    format="%(asctime)s::%(levelname)s::%(name)s::%(module)s::%(message)s"
+)
 
-from menu.menu import Menu
 from window import Window
+from menu.menu import Menu
 
 class Main:
     """Entry point for CoG."""

@@ -49,42 +49,42 @@ class Window:
                 (left, top + height),
             )
 
-            radius = min(width, height) / 10
+            radius = min(width, height)/10
 
             pygame.draw.line(
                 self.DISPLAYSURF,
                 color,
-                (points[0][0] + math.floor(radius / 2), points[0][1]),
-                (points[1][0] - math.floor(radius / 2), points[1][1]),
+                (points[0][0] + math.floor(radius/ 2), points[0][1]),
+                (points[1][0] - math.floor(radius/ 2), points[1][1]),
                 thickness
             )
             pygame.draw.line(
                 self.DISPLAYSURF,
                 color,
-                (points[1][0], points[1][1] + math.floor(radius / 2)),
-                (points[2][0], points[2][1] - math.floor(radius / 2)),
+                (points[1][0], points[1][1] + math.floor(radius/ 2)),
+                (points[2][0], points[2][1] - math.floor(radius/ 2)),
                 thickness
             )
             pygame.draw.line(
                 self.DISPLAYSURF,
                 color,
-                (points[3][0] + math.floor(radius / 2), points[3][1]),
-                (points[2][0] - math.floor(radius / 2), points[2][1]),
+                (points[3][0] + math.floor(radius/2), points[3][1]),
+                (points[2][0] - math.floor(radius/2), points[2][1]),
                 thickness
             )
             pygame.draw.line(
                 self.DISPLAYSURF,
                 color,
-                (points[0][0], points[0][1] + math.floor(radius / 2)),
-                (points[3][0], points[3][1] - math.floor(radius / 2)),
+                (points[0][0], points[0][1] + math.floor(radius/2)),
+                (points[3][0], points[3][1] - math.floor(radius/2)),
                 thickness
             )
 
             rectangles = (
                 pygame.Rect(
                     (
-                        points[1][0] - radius - round(thickness / 2 - 1),
-                        points[1][1] - round(thickness / 2 - 1)
+                        points[1][0] - radius - round(thickness/2 - 1),
+                        points[1][1] - round(thickness/2 - 1)
                     ),
                     (
                         radius + thickness,
@@ -93,8 +93,8 @@ class Window:
                 ),
                 pygame.Rect(
                     (
-                        points[0][0] - round(thickness / 2 - 1),
-                        points[0][1] - round(thickness / 2 - 1)
+                        points[0][0] - round(thickness/2 - 1),
+                        points[0][1] - round(thickness/2 - 1)
                     ),
                     (
                         radius + thickness,
@@ -103,8 +103,8 @@ class Window:
                 ),
                 pygame.Rect(
                     (
-                        points[3][0] - round(thickness / 2 - 1),
-                        points[3][1] - radius - round(thickness / 2 - 1)
+                        points[3][0] - round(thickness/2 - 1),
+                        points[3][1] - radius - round(thickness/2 - 1)
                     ),
                     (
                         radius + thickness,
@@ -113,8 +113,8 @@ class Window:
                 ),
                 pygame.Rect(
                     (
-                        points[2][0] - radius - round(thickness / 2 - 1),
-                        points[2][1] - radius - round(thickness / 2 - 1)
+                        points[2][0] - radius - round(thickness/2 - 1),
+                        points[2][1] - radius - round(thickness/2 - 1)
                     ),
                     (
                         radius + thickness,
@@ -178,7 +178,7 @@ class Window:
 
             text_font = pygame.font.Font(
                             font,
-                            round(size * display_height / 1080)
+                            round(size*display_height/1080)
                         )
         except FileNotFoundError as e:
             logging.error(f"FileNotFoundError: {e}")

@@ -69,7 +69,7 @@ class Menu(Window):
         self.fill(self.BLACK)
 
         self.text(
-            round(display_width * 0.4375), round(display_height * 0.025),
+            round(0.4375*display_width), round(0.025*display_height),
             "CoG", 120,
             self.WHITE
         )

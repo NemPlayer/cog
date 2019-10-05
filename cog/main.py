@@ -7,12 +7,13 @@ from pathlib import Path, PurePath
 os.chdir(Path(__file__).parent)
 
 logging.basicConfig(
-#    filename=PurePath(Path.cwd(), f"logs/{time.strftime('%Y-%m-%d %X')}.log"),
+    filename=PurePath(Path.cwd(), f"logs/{time.strftime('%Y-%m-%d %X')}.log"),
     level=logging.DEBUG,
     format="%(asctime)s::%(levelname)s::%(name)s::%(module)s::%(message)s"
 )
 
 from window import Window
+from events import Events
 from menu.menu import Menu
 
 class Main:
@@ -32,13 +33,15 @@ class Main:
 
         running = True
 
+        events = Events()
+
         while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
-                    logging.info("Quitting CoG...")
+            for event in events:
+                if event.type == pygame.KEYDOWN:
                     running = False
 
             pygame.display.update()
+
 
 if __name__ == "__main__":
     Main()

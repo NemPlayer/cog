@@ -164,7 +164,7 @@ class Window:
                 font = MAIN_FONTS["8bit"]
             except KeyError as e:
                 logging.error(
-                    f"KeyError: {e} is not a valid key for 'FONTS' dict"
+                    f"KeyError: {e} is not a valid key for 'FONTS'"
                 )
                 return
 

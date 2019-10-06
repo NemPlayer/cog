@@ -12,7 +12,6 @@ logging.basicConfig(
     format="%(asctime)s::%(levelname)s::%(name)s::%(module)s::%(message)s"
 )
 
-from window import Window
 from events import Events
 from menu.menu import Menu
 
@@ -37,9 +36,15 @@ class Main:
 
         while running:
             for event in events:
-                if event.type == pygame.KEYDOWN:
-                    running = False
+                self.window.pass_event(event)
 
+                if event.level == "host":
+                    if event.type == pygame.KEYDOWN:
+                        if event.mod & pygame.KMOD_CTRL:
+                            if event.key == pygame.K_ESCAPE:
+                                running = False
+
+            self.window.draw()
             pygame.display.update()
 
 

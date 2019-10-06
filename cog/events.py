@@ -85,7 +85,7 @@ class EventIterator:
         self.events = events
 
     def __next__(self):
-        """???Yielder??? of EventIterator class."""
+        """Next of EventIterator class."""
 
         if self.index >= len(self.events):
             raise StopIteration

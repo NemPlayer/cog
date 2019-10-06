@@ -17,12 +17,15 @@ class Menu(Window):
 
         self.games = set()
         self.update_games()
+
+        self.selected_game = 0
+
         logging.debug(self.games)
 
         self.draw()
 
     def update_games(self):
-        """Updates 'self.games' set with 'info.json' file from games."""
+        """Updates 'self.games' with 'info.json' file from games."""
 
         games_path = PurePath(Path.cwd(), "games/")
 
@@ -56,6 +59,26 @@ class Menu(Window):
 
                             logging.info("Successfully added a game!")
 
+    def pass_event(self, event):
+        """Event handler for Main class.
+
+        Keyword arguments:
+        event -- Event passed for processing
+        """
+
+        if event.level == "host":
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    if self.selected_game > 0:
+                        self.selected_game -= 1
+                    else:
+                        pass
+                elif event.key == pygame.K_DOWN:
+                    if self.selected_game < len(self.games) - 1:
+                        self.selected_game += 1
+                    else:
+                        pass
+
     def draw(self):
         """Draws the menu."""
 
@@ -81,21 +104,41 @@ class Menu(Window):
             round(0.3625*display_width),
             display_height - 2*round(0.05*display_height),
             3,
-            True)
+            True
+        )
 
         for index, game in enumerate(self.games):
-            self.text(
-                round(1.4*0.05*display_height),
-                round(1.4*0.05*display_height + index*0.05*display_height),
-                game.name,
-                45,
-                self.WHITE
-            )
+            if self.selected_game == index:
+                self.text(
+                    round(1.4*0.05*display_height),
+                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    game.name,
+                    45,
+                    self.BLACK,
+                    background=self.WHITE
+                )
 
-            self.text(
-                round(0.3625*display_width - 0.4*0.05*display_height),
-                round(1.4*0.05*display_height + index*0.05*display_height),
-                game.version,
-                45,
-                self.WHITE
-            )
+                self.text(
+                    round(0.3625*display_width - 0.4*0.05*display_height),
+                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    game.version,
+                    45,
+                    self.BLACK,
+                    background=self.WHITE
+                )
+            else:
+                self.text(
+                    round(1.4*0.05*display_height),
+                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    game.name,
+                    45,
+                    self.WHITE
+                )
+
+                self.text(
+                    round(0.3625*display_width - 0.4*0.05*display_height),
+                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    game.version,
+                    45,
+                    self.WHITE
+                )

@@ -163,9 +163,7 @@ class Window:
             try:
                 font = MAIN_FONTS["8bit"]
             except KeyError as e:
-                logging.error(
-                    f"KeyError: {e} is not a valid key for 'FONTS'"
-                )
+                logging.error(f"KeyError: {e} is not a valid key for 'FONTS'")
                 return
 
         try:
@@ -177,15 +175,15 @@ class Window:
             # display_width, display_height = 1920, 400
 
             text_font = pygame.font.Font(
-                            font,
-                            round(size*display_height/1080)
-                        )
+                font,
+                round(size*display_height/1080)
+            )
         except FileNotFoundError as e:
             logging.error(f"FileNotFoundError: {e}")
         else:
             text_renderer = text_font.render(
-                                message, antialias,
-                                color, background
-                            )
+                message, antialias,
+                color, background
+            )
 
             self.DISPLAYSURF.blit(text_renderer, (left, top))

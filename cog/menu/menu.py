@@ -1,6 +1,7 @@
 import pygame
 import logging
 import os
+import math
 import json
 from pathlib import PurePath, Path
 
@@ -15,17 +16,30 @@ class Menu(Window):
 
         super(Menu, self).__init__()
 
-        self.games = set()
+        self.games = []
         self.update_games()
 
-        self.selected_game = 0
+        display_info = pygame.display.Info()
+        display_width = display_info.current_w
+        display_height = display_info.current_h
 
-        logging.debug(self.games)
+        # Simulate Display Resolution
+        # display_width, display_height = 1920, 400
+
+        self.GAMES_AMOUNT = math.floor(
+            (display_height - 2*round(0.05*display_height))                   \
+            / (45*display_height/1080)
+        )
+
+        self.games_start = 0
+        self.selected_game = 0
 
         self.draw()
 
     def update_games(self):
         """Updates 'self.games' with 'info.json' file from games."""
+
+        self.games = []
 
         games_path = PurePath(Path.cwd(), "games/")
 
@@ -55,7 +69,7 @@ class Menu(Window):
                             )
                         else:
                             game = Game(name, description, version, players)
-                            self.games.add(game)
+                            self.games.append(game)
 
                             logging.info("Successfully added a game!")
 
@@ -73,9 +87,20 @@ class Menu(Window):
                         self.selected_game -= 1
                     else:
                         pass
+
+                    if self.selected_game - self.games_start < 0:
+                        self.games_start -= 1
+                    else:
+                        pass
                 elif event.key == pygame.K_DOWN:
                     if self.selected_game < len(self.games) - 1:
                         self.selected_game += 1
+                    else:
+                        pass
+
+                    if self.selected_game - self.games_start >= self.GAMES_AMOUNT:# Simulate Display Resolution
+        # display_width, display_height = 1920, 400
+                        self.games_start += 1
                     else:
                         pass
 
@@ -107,11 +132,17 @@ class Menu(Window):
             True
         )
 
-        for index, game in enumerate(self.games):
-            if self.selected_game == index:
+        shown_games = self.games[self.games_start:self.games_start + self.GAMES_AMOUNT]
+        shown_selected_game = self.selected_game - self.games_start
+
+        text_distance = 45*display_height/1080
+        text_margin = 1.4*0.05*display_height
+
+        for index, game in enumerate(shown_games):
+            if index == shown_selected_game:
                 self.text(
-                    round(1.4*0.05*display_height),
-                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    round(text_margin),
+                    round(text_margin + index*text_distance),
                     game.name,
                     45,
                     self.BLACK,
@@ -119,8 +150,8 @@ class Menu(Window):
                 )
 
                 self.text(
-                    round(0.3625*display_width - 0.4*0.05*display_height),
-                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    round(0.3625*display_width - text_margin),
+                    round(text_margin + index*text_distance),
                     game.version,
                     45,
                     self.BLACK,
@@ -128,16 +159,16 @@ class Menu(Window):
                 )
             else:
                 self.text(
-                    round(1.4*0.05*display_height),
-                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    round(text_margin),
+                    round(text_margin + index*text_distance),
                     game.name,
                     45,
                     self.WHITE
                 )
 
                 self.text(
-                    round(0.3625*display_width - 0.4*0.05*display_height),
-                    round(1.4*0.05*display_height + index*0.05*display_height),
+                    round(0.3625*display_width - text_margin),
+                    round(text_margin + index*text_distance),
                     game.version,
                     45,
                     self.WHITE

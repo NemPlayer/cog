@@ -23,6 +23,8 @@ class Main:
 
         pygame.init()
 
+        self.clock = pygame.time.Clock()
+
         self.window = Menu()
 
         self.run()
@@ -46,6 +48,7 @@ class Main:
 
             self.window.draw()
             pygame.display.update()
+            self.clock.tick(60)
 
 
 if __name__ == "__main__":

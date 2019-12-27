@@ -19,16 +19,9 @@ class Menu(Window):
         self.games = []
         self.update_games()
 
-        display_info = pygame.display.Info()
-        display_width = display_info.current_w
-        display_height = display_info.current_h
-
-        # Simulate Display Resolution
-        # display_width, display_height = 1920, 400
-
         self.GAMES_AMOUNT = math.floor(
-            (display_height - 2*round(0.05*display_height))                   \
-            / (45*display_height/1080)
+            (self.DISPLAY_HEIGHT - 2*round(0.05*self.DISPLAY_HEIGHT))
+            / (45*self.DISPLAY_HEIGHT/1080)
         )
 
         self.games_start = 0
@@ -88,7 +81,9 @@ class Menu(Window):
                     else:
                         pass
 
-                    if self.selected_game - self.games_start < 0:
+                    shown_selected_game = self.selected_game - self.games_start
+
+                    if shown_selected_game < 0:
                         self.games_start -= 1
                     else:
                         pass
@@ -98,45 +93,44 @@ class Menu(Window):
                     else:
                         pass
 
-                    if self.selected_game - self.games_start >= self.GAMES_AMOUNT:# Simulate Display Resolution
-        # display_width, display_height = 1920, 400
+                    shown_selected_game = self.selected_game - self.games_start
+
+                    if shown_selected_game >= self.GAMES_AMOUNT:
                         self.games_start += 1
                     else:
                         pass
+                elif event.key == pygame.K_RETURN:
+                    print("A")
 
     def draw(self):
         """Draws the menu."""
 
-        display_info = pygame.display.Info()
-        display_width = display_info.current_w
-        display_height = display_info.current_h
-
-        # Simulate Display Resolution
-        # display_width, display_height = 1920, 400
-
         self.fill(self.BLACK)
 
         self.text(
-            round(0.4375*display_width), round(0.025*display_height),
+            round(0.4375*self.DISPLAY_WIDTH), round(0.025*self.DISPLAY_HEIGHT),
             "CoG", 120,
             self.WHITE
         )
 
         self.rect(
             self.YELLOW,
-            round(0.05*display_height),
-            round(0.05*display_height),
-            round(0.3625*display_width),
-            display_height - 2*round(0.05*display_height),
+            round(0.05*self.DISPLAY_HEIGHT),
+            round(0.05*self.DISPLAY_HEIGHT),
+            round(0.3625*self.DISPLAY_WIDTH),
+            self.DISPLAY_HEIGHT - 2*round(0.05*self.DISPLAY_HEIGHT),
             3,
             True
         )
 
-        shown_games = self.games[self.games_start:self.games_start + self.GAMES_AMOUNT]
+        shown_games_lower = self.games_start
+        shown_games_upper = shown_games_lower + self.GAMES_AMOUNT
+        shown_games = self.games[shown_games_lower:shown_games_upper]
+
         shown_selected_game = self.selected_game - self.games_start
 
-        text_distance = 45*display_height/1080
-        text_margin = 1.4*0.05*display_height
+        text_distance = 45*self.DISPLAY_HEIGHT/1080
+        text_margin = 1.4*0.05*self.DISPLAY_HEIGHT
 
         for index, game in enumerate(shown_games):
             if index == shown_selected_game:
@@ -150,7 +144,7 @@ class Menu(Window):
                 )
 
                 self.text(
-                    round(0.3625*display_width - text_margin),
+                    round(0.3625*self.DISPLAY_WIDTH - text_margin),
                     round(text_margin + index*text_distance),
                     game.version,
                     45,
@@ -167,7 +161,7 @@ class Menu(Window):
                 )
 
                 self.text(
-                    round(0.3625*display_width - text_margin),
+                    round(0.3625*self.DISPLAY_WIDTH - text_margin),
                     round(text_margin + index*text_distance),
                     game.version,
                     45,

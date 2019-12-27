@@ -17,6 +17,13 @@ class Window:
 
         self.DISPLAYSURF = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
+        display_info = pygame.display.Info()
+        self.DISPLAY_WIDTH = display_info.current_w
+        self.DISPLAY_HEIGHT = display_info.current_h
+
+        # Simulate Display Resolution
+        # self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT = 1920, 400
+
     def fill(self, color, rect=None, special_flags=0):
         """Fill 'DISPLAYSURF' with a solid color.
 
@@ -167,16 +174,9 @@ class Window:
                 return
 
         try:
-            display_info = pygame.display.Info()
-            display_width = display_info.current_w
-            display_height = display_info.current_h
-
-            # Simulate Display Resolution
-            # display_width, display_height = 1920, 400
-
             text_font = pygame.font.Font(
                 font,
-                round(size*display_height/1080)
+                round(size*self.DISPLAY_HEIGHT/1080)
             )
         except FileNotFoundError as e:
             logging.error(f"FileNotFoundError: {e}")

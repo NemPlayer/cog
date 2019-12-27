@@ -4,8 +4,8 @@ class Events:
     """Handles pygame and custom controller events.
 
     Keyword arguments:
-    event_type -- If a type or sequence of types is given,
-                  only those messages will be removed from the queue.
+    event_type -- If a type or sequence of types is given, only
+                  those messages will be removed from the queue.
     """
 
     def __init__(self, event_type=None):

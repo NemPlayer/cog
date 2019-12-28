@@ -1,0 +1,9 @@
+{
+    "background": "player_color",
+    "buttons": {
+        "A": ["button1", 20, 20, 20, 20, "player_color_opposite", "A"],
+        "B": ["button1", 60, 20, 20, 20, "player_color_opposite", "B"],
+        "C": ["button1", 20, 60, 20, 20, "player_color_opposite", "C"],
+        "D": ["button1", 60, 60, 20, 20, "player_color_opposite", "D"]
+    }
+}

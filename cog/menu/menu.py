@@ -14,7 +14,7 @@ class Menu(Window):
     def __init__(self):
         """Constructor of Menu class."""
 
-        super(Menu, self).__init__()
+        super().__init__()
 
         self.games = []
         self.update_games()
@@ -48,10 +48,7 @@ class Menu(Window):
                             name = str(info["name"])
                             description = str(info["description"])
                             version = str(info["version"])
-                            players = (
-                                int(info["players"]["min"]),
-                                int(info["players"]["max"])
-                            )
+                            players = int(info["players"])
                         except ValueError as e:
                             logging.error(
                                 f"ValueError: {e}"

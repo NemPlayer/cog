@@ -7,7 +7,7 @@ class Game:
     name -- Name of the game
     description -- Description of the game
     version -- Version number of the game
-    players -- Min and max amount of players that can play the game
+    players -- Minimal number of players required to play the game
     """
 
     def __init__(self, name, description, version, players):
@@ -17,7 +17,7 @@ class Game:
         name -- Name of the game
         description -- Description of the game
         version -- Version number of the game
-        players -- Min and max amount of players that can play the game
+        players -- Minimal number of players required to play the game
         """
 
         self.name = name
